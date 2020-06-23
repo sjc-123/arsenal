@@ -70,7 +70,13 @@ export default {
 
   methods: {
     sendCmd() {
-      alert(this.cmd)
+      fetch(process.env.VUE_APP_APIURL + '/execsql', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({'cmd': this.cmd})
+      })
+      .then(res => res.json())
+      .then(res => alert(res))
     }
   },
 
