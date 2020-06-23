@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -64,3 +65,12 @@ def get_coach():
             'name': '孙笑川'
         }
     ]
+
+
+class SqlCmd(BaseModel):
+    cmd: str
+
+@app.post('/execsql')
+def post_execsql(sql: SqlCmd):
+    print(sql.cmd)
+    return sql.cmd
